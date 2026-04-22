@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact — NexCore</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .contact-hero {
+            padding: 160px 24px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-hero h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        /* Layout */
+        .contact-section {
+            padding: 40px 24px 100px;
+        }
+
+        .contact-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1.2fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* Form card */
+        .form-card {
+            border-radius: 28px;
+            padding: 40px 36px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .form-card h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .form-card>p {
+            color: var(--soft);
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 15px;
+            margin-top: 8px;
+        }
+
+        #success-wrap {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #success-wrap h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+
+        #success-wrap p {
+            color: var(--soft);
+            font-size: 14px;
+        }
+
+        /* Info sidebar */
+        .contact-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .info-card {
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: rgba(0, 229, 255, 0.2);
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            font-size: 18px;
+        }
+
+        .info-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .info-card p,
+        .info-card a {
+            font-size: 13.5px;
+            color: var(--soft);
+            line-height: 1.55;
+        }
+
+        .info-card a:hover {
+            color: var(--cyan);
+        }
+
+        /* Availability banner */
+        .avail-banner {
+            border-radius: 20px;
+            padding: 20px 24px;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.07), rgba(123, 94, 167, 0.05));
+            border: 1px solid rgba(0, 229, 255, 0.18);
+        }
+
+        .avail-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            flex-shrink: 0;
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .avail-banner p {
+            font-size: 13px;
+            color: var(--soft);
+            line-height: 1.55;
+        }
+
+        .avail-banner strong {
+            color: var(--text);
+        }
+
+        /* Map-like visual */
+        .map-card {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        @media (max-width: 900px) {
+            .contact-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <canvas id="canvas"></canvas>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-icon"><svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                        <path d="M2 8L8 2L14 8L8 14Z" fill="#060608" />
+                    </svg></div><span class="nav-logo-text">Nex<span class="cyan-text">Core</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="process.html" class="nav-link">Process</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="btn-primary btn-sm active">Get Started →</a>
+            </div>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+        <div id="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="services.html" class="mobile-link">Services</a>
+            <a href="process.html" class="mobile-link">Process</a>
+            <a href="portfolio.html" class="mobile-link">Portfolio</a>
+            <a href="about.html" class="mobile-link">About</a>
+            <a href="contact.html" class="mobile-link btn-primary btn-sm active"
+                style="text-align:center;margin-top:6px;">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="contact-hero grid-bg">
+        <div class="orb orb-cyan" style="width:350px;height:350px;top:-60px;right:-60px;"></div>
+        <div style="position:relative;z-index:2;">
+            <div class="section-tag" style="margin-bottom:12px;">Get In Touch</div>
+            <h1>Let's Build <span class="gradient-text" style="-webkit-text-fill-color:transparent">Something
+                    Great</span></h1>
+            <p style="color:var(--soft);font-size:1.05rem;max-width:500px;margin:0 auto;">Tell us about your project.
+                We'll respond within 24 hours with a clear plan and an honest estimate.</p>
+        </div>
+    </div>
+
+    <!-- CONTACT LAYOUT -->
+    <section class="contact-section">
+        <div class="contact-inner">
+
+            <!-- FORM -->
+            <div class="form-card reveal-left">
+                <h2>Start a Conversation</h2>
+                <p>Fill in the brief below and we'll put together a tailored response within one business day.</p>
+
+                <form id="contact-form" onsubmit="submitForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" required class="form-input" placeholder="John Adeyemi" />
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" required class="form-input" placeholder="you@company.com" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Company (optional)</label>
+                            <input type="text" class="form-input" placeholder="Acme Corp" />
+                        </div>
+                        <div class="form-group">
+                            <label>Budget Range</label>
+                            <select class="form-select form-input">
+                                <option value="" disabled selected>Select range…</option>
+                                <option>Under $5,000</option>
+                                <option>$5,000 – $15,000</option>
+                                <option>$15,000 – $50,000</option>
+                                <option>$50,000+</option>
+                                <option>Let's discuss</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Service Interest</label>
+                        <select class="form-select form-input">
+                            <option value="" disabled selected>What do you need?</option>
+                            <option>Software Development</option>
+                            <option>Software Consulting</option>
+                            <option>AI & Automation</option>
+                            <option>Multiple Services</option>
+                            <option>Not sure yet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Project Brief</label>
+                        <textarea class="form-textarea" required
+                            placeholder="Tell us about your project — what you're building, why it matters, and when you'd like to launch. The more context, the better."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Timeline</label>
+                        <select class="form-select form-input">
+                            <option value="" disabled selected>When do you need this?</option>
+                            <option>ASAP</option>
+                            <option>1–2 months</option>
+                            <option>3–6 months</option>
+                            <option>6+ months</option>
+                            <option>Flexible</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="submit-btn" class="btn-primary submit-btn"><span id="btn-txt">Send Project
+                            Brief →</span></button>
+                </form>
+
+                <div id="success-wrap">
+                    <div style="font-size:2.5rem;margin-bottom:12px;">✦</div>
+                    <h3>Message Received!</h3>
+                    <p>We'll review your brief and reply within 24 hours with a clear path forward.</p>
+                    <a href="index.html" class="btn-ghost btn-sm" style="margin-top:20px;display:inline-flex;">← Back to
+                        Home</a>
+                </div>
+            </div>
+
+            <!-- SIDEBAR -->
+            <div class="contact-sidebar reveal-right">
+
+                <!-- Availability -->
+                <div class="avail-banner">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                        <div class="avail-dot"></div>
+                        <strong style="font-family:var(--font-display);font-size:13px;">Currently Available</strong>
+                    </div>
+                    <p>We're taking on new projects for Q2–Q3 2025. Slots are limited — reach out early to secure yours.
+                    </p>
+                </div>
+
+                <!-- Contact info -->
+                <div class="info-card">
+                    <div class="info-icon">📧</div>
+                    <h4>Email Us</h4>
+                    <a href="mailto:hello@nexcore.dev">hello@nexcore.dev</a>
+                    <p style="margin-top:4px;">Best for general inquiries & project briefs</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <h4>Call or WhatsApp</h4>
+                    <a href="tel:+2348000000000">+234 800 000 0000</a>
+                    <p style="margin-top:4px;">Mon–Fri, 9am–6pm WAT</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <h4>Headquarters</h4>
+                    <p>Port Harcourt, Rivers State<br>Nigeria 🇳🇬</p>
+                    <p style="margin-top:6px;">We work with clients <strong style="color:var(--text)">worldwide</strong>
+                        — remotely.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">⏱️</div>
+                    <h4>Response Time</h4>
+                    <p>We typically respond within <strong style="color:var(--cyan)">24 hours</strong> on business days.
+                        For urgent matters, WhatsApp is fastest.</p>
+                </div>
+
+                <!-- Map visual -->
+                <div class="map-card">
+                    <svg width="100%" height="100%" viewBox="0 0 360 270" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="position:absolute;inset:0;">
+                        <rect width="360" height="270" fill="rgba(6,6,8,0.6)" />
+                        <!-- Simple map grid -->
+                        <line x1="0" y1="90" x2="360" y2="90" stroke="rgba(0,229,255,0.05)" stroke-width="1" />
+                        <line x1="0" y1="180" x2="360" y2="180" stroke="rgba(0,229,255,0.05)" stroke-width="1" />
+                        <line x1="120" y1="0" x2="120" y2="270" stroke="rgba(0,229,255,0.05)" stroke-width="1" />
+                        <line x1="240" y1="0" x2="240" y2="270" stroke="rgba(0,229,255,0.05)" stroke-width="1" />
+                        <!-- Nigeria marker -->
+                        <circle cx="200" cy="155" r="30" fill="rgba(0,229,255,0.06)" stroke="rgba(0,229,255,0.2)"
+                            stroke-width="1" />
+                        <circle cx="200" cy="155" r="6" fill="var(--cyan)" />
+                        <circle cx="200" cy="155" r="12" fill="rgba(0,229,255,0.2)" />
+                        <text x="200" y="200" fill="rgba(0,229,255,0.6)" font-size="11" text-anchor="middle"
+                            font-family="sans-serif">Port Harcourt, NG</text>
+                        <!-- Pulse rings -->
+                        <circle cx="200" cy="155" r="20" fill="none" stroke="rgba(0,229,255,0.15)" stroke-width="1">
+                            <animate attributeName="r" values="14;28;14" dur="3s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite" />
+                        </circle>
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand"><a href="index.html" class="nav-logo">
+                        <div class="nav-logo-icon"><svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 8L8 2L14 8L8 14Z" fill="#060608" />
+                            </svg></div><span class="nav-logo-text">Nex<span class="cyan-text">Core</span></span>
+                    </a>
+                    <p>Building the software of tomorrow — today.</p>
+                    <div class="footer-socials"><a href="#" class="social-btn">Li</a><a href="#"
+                            class="social-btn">Tw</a><a href="#" class="social-btn">Gh</a></div>
+                </div>
+                <div class="footer-col">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="services.html#dev">Software Development</a></li>
+                        <li><a href="services.html#consulting">Consulting</a></li>
+                        <li><a href="services.html#ai">AI & Automation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <ul>
+                        <li><a href="mailto:hello@nexcore.dev">hello@nexcore.dev</a></li>
+                        <li><a href="#">Port Harcourt, NG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><span>© 2025 NexCore. All rights reserved.</span><span
+                    style="font-family:var(--font-display)">Built with precision. Deployed with care.</span></div>
+        </div>
+    </footer>
+
+    <button id="chat-toggle" aria-label="Chat"><svg id="chat-icon-open" width="22" height="22" viewBox="0 0 24 24"
+            fill="none">
+            <path
+                d="M21 15C21 15.53 20.79 16.04 20.41 16.41C20.04 16.79 19.53 17 19 17H7L3 21V5C3 4.47 3.21 3.96 3.59 3.59C3.96 3.21 4.47 3 5 3H19C19.53 3 20.04 3.21 20.41 3.59C20.79 3.96 21 4.47 21 5V15Z"
+                stroke="#060608" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg><svg id="chat-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="#060608" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+        <div class="chat-badge">1</div>
+    </button>
+    <div id="chatbot-wrap">
+        <div class="chat-header">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="chat-avatar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="4" fill="white" />
+                        <path d="M12 2V6M12 18V22M2 12H6M18 12H22" stroke="white" stroke-width="2"
+                            stroke-linecap="round" opacity="0.5" />
+                    </svg></div>
+                <div>
+                    <div style="font-family:var(--font-display);font-weight:700;font-size:14px;">NexCore AI</div>
+                    <div
+                        style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--soft);margin-top:2px;">
+                        <span
+                            style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:block;"></span>Online
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chat-msgs"></div>
+        <div class="chat-footer">
+            <div style="display:flex;gap:8px;"><textarea id="chat-input" rows="1"
+                    placeholder="Any questions before reaching out?"></textarea><button id="chat-send">Send</button>
+            </div>
+            <div style="text-align:center;margin-top:8px;font-size:11px;color:var(--muted);">Powered by Claude AI</div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        function submitForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const txt = document.getElementById('btn-txt');
+            txt.textContent = 'Sending…'; btn.disabled = true;
+            setTimeout(() => {
+                document.getElementById('contact-form').style.display = 'none';
+                document.getElementById('success-wrap').style.display = 'flex';
+                document.getElementById('success-wrap').style.flexDirection = 'column';
+                document.getElementById('success-wrap').style.alignItems = 'center';
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

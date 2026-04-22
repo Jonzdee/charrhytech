@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio — NexCore</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .port-hero {
+            padding: 160px 24px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .port-hero h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        /* Filters */
+        .port-filters {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+            padding: 0 24px;
+        }
+
+        .filter-btn {
+            padding: 9px 20px;
+            border-radius: 99px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--soft);
+            font-family: var(--font-display);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: rgba(0, 229, 255, 0.08);
+            border-color: rgba(0, 229, 255, 0.3);
+            color: var(--cyan);
+        }
+
+        /* Grid */
+        .port-section {
+            padding: 0 24px 100px;
+        }
+
+        .port-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .port-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .port-card {
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            cursor: pointer;
+        }
+
+        .port-card:hover {
+            border-color: rgba(0, 229, 255, 0.28);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 229, 255, 0.07);
+        }
+
+        .port-thumb {
+            aspect-ratio: 16/10;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .port-thumb-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .port-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(6, 6, 8, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .port-card:hover .port-overlay {
+            opacity: 1;
+        }
+
+        .port-view-btn {
+            padding: 10px 22px;
+            background: var(--cyan);
+            color: var(--void);
+            border-radius: 12px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 13px;
+            transform: translateY(10px);
+            transition: transform 0.3s;
+        }
+
+        .port-card:hover .port-view-btn {
+            transform: translateY(0);
+        }
+
+        .port-info {
+            padding: 20px 22px;
+        }
+
+        .port-cats {
+            display: flex;
+            gap: 7px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .port-cat {
+            font-size: 10px;
+            font-family: var(--font-display);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            padding: 3px 9px;
+            border-radius: 6px;
+        }
+
+        .port-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .port-info p {
+            font-size: 13px;
+            color: var(--soft);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .port-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .port-result {
+            font-size: 12px;
+            color: var(--cyan);
+            font-family: var(--font-display);
+            font-weight: 600;
+        }
+
+        /* Featured card */
+        .port-card.featured {
+            grid-column: span 2;
+        }
+
+        .port-card.featured .port-thumb {
+            aspect-ratio: 2/1;
+        }
+
+        /* Stats row */
+        .port-stats {
+            padding: 60px 24px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .port-stats-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .ps-num {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--cyan);
+        }
+
+        .ps-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 900px) {
+            .port-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .port-card.featured {
+                grid-column: span 1;
+            }
+
+            .port-stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .port-stats-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <canvas id="canvas"></canvas>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-icon"><svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                        <path d="M2 8L8 2L14 8L8 14Z" fill="#060608" />
+                    </svg></div><span class="nav-logo-text">Nex<span class="cyan-text">Core</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="process.html" class="nav-link">Process</a>
+                <a href="portfolio.html" class="nav-link active">Portfolio</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="btn-primary btn-sm">Get Started →</a>
+            </div>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+        <div id="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="services.html" class="mobile-link">Services</a>
+            <a href="process.html" class="mobile-link">Process</a>
+            <a href="portfolio.html" class="mobile-link active">Portfolio</a>
+            <a href="about.html" class="mobile-link">About</a>
+            <a href="contact.html" class="mobile-link btn-primary btn-sm" style="text-align:center;margin-top:6px;">Get
+                Started →</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="port-hero grid-bg">
+        <div class="orb orb-cyan" style="width:400px;height:400px;top:-80px;right:-80px;"></div>
+        <div style="position:relative;z-index:2;">
+            <div class="section-tag" style="margin-bottom:12px;">Our Work</div>
+            <h1>Projects We're <span class="gradient-text" style="-webkit-text-fill-color:transparent">Proud Of</span>
+            </h1>
+            <p style="color:var(--soft);font-size:1.05rem;max-width:500px;margin:0 auto 40px;">A curated selection of
+                projects across industries — each one a story of a problem solved and a product shipped.</p>
+        </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="port-filters">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="web">Web Apps</button>
+        <button class="filter-btn" data-filter="ai">AI & Automation</button>
+        <button class="filter-btn" data-filter="mobile">Mobile</button>
+        <button class="filter-btn" data-filter="consulting">Consulting</button>
+    </div>
+
+    <!-- PORTFOLIO GRID -->
+    <section class="port-section">
+        <div class="port-inner">
+            <div class="port-grid">
+
+                <!-- Featured: LoopStack -->
+                <div class="port-card featured reveal d1" data-cat="web ai">
+                    <div class="port-thumb"
+                        style="background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(123,94,167,0.06));">
+                        <div class="port-thumb-inner">
+                            <svg width="420" height="200" viewBox="0 0 420 200" fill="none">
+                                <rect x="20" y="20" width="380" height="160" rx="10" fill="rgba(255,255,255,0.03)"
+                                    stroke="rgba(0,229,255,0.1)" stroke-width="1" />
+                                <rect x="20" y="20" width="380" height="32" rx="10" fill="rgba(0,229,255,0.06)" />
+                                <rect x="36" y="70" width="160" height="80" rx="8" fill="rgba(0,229,255,0.05)"
+                                    stroke="rgba(0,229,255,0.12)" stroke-width="1" />
+                                <rect x="216" y="70" width="160" height="36" rx="8" fill="rgba(123,94,167,0.08)"
+                                    stroke="rgba(123,94,167,0.15)" stroke-width="1" />
+                                <rect x="216" y="114" width="160" height="36" rx="8" fill="rgba(245,158,11,0.06)"
+                                    stroke="rgba(245,158,11,0.12)" stroke-width="1" />
+                                <text x="116" y="115" fill="rgba(0,229,255,0.6)" font-size="12" text-anchor="middle"
+                                    font-family="sans-serif">LoopStack SaaS</text>
+                                <text x="296" y="92" fill="rgba(123,94,167,0.7)" font-size="10" text-anchor="middle"
+                                    font-family="sans-serif">AI Recommendations</text>
+                                <text x="296" y="136" fill="rgba(245,158,11,0.7)" font-size="10" text-anchor="middle"
+                                    font-family="sans-serif">+40% Engagement</text>
+                            </svg>
+                        </div>
+                        <div class="port-overlay">
+                            <div class="port-view-btn">View Case Study →</div>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <div class="port-cats"><span class="port-cat">Web App</span><span
+                                class="port-cat">AI</span><span class="port-cat">SaaS</span></div>
+                        <h3>LoopStack — SaaS Analytics Platform</h3>
+                        <p>Full-stack SaaS platform with AI-powered recommendations engine. Delivered 2 weeks ahead of
+                            schedule with a 40% uplift in user engagement after launch.</p>
+                        <div class="port-meta"><span>Delivered 6 weeks</span><span class="port-result">+40% Engagement
+                                ↑</span></div>
+                    </div>
+                </div>
+
+                <!-- Meridian Finance -->
+                <div class="port-card reveal d2" data-cat="ai">
+                    <div class="port-thumb"
+                        style="background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(13,13,20,0.9));">
+                        <div class="port-thumb-inner">
+                            <svg width="280" height="160" viewBox="0 0 280 160" fill="none">
+                                <rect x="20" y="20" width="240" height="120" rx="10" fill="rgba(255,255,255,0.02)"
+                                    stroke="rgba(245,158,11,0.15)" stroke-width="1" />
+                                <text x="140" y="55" fill="rgba(245,158,11,0.8)" font-size="13" text-anchor="middle"
+                                    font-family="sans-serif" font-weight="bold">Automation Pipeline</text>
+                                <rect x="36" y="70" width="60" height="30" rx="6" fill="rgba(245,158,11,0.08)"
+                                    stroke="rgba(245,158,11,0.2)" stroke-width="1" />
+                                <text x="66" y="90" fill="rgba(245,158,11,0.6)" font-size="9" text-anchor="middle"
+                                    font-family="sans-serif">Input</text>
+                                <path d="M96 85H116" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"
+                                    stroke-dasharray="3,2" />
+                                <rect x="116" y="70" width="60" height="30" rx="6" fill="rgba(0,229,255,0.06)"
+                                    stroke="rgba(0,229,255,0.15)" stroke-width="1" />
+                                <text x="146" y="90" fill="rgba(0,229,255,0.6)" font-size="9" text-anchor="middle"
+                                    font-family="sans-serif">Process</text>
+                                <path d="M176 85H196" stroke="rgba(0,229,255,0.4)" stroke-width="1.5"
+                                    stroke-dasharray="3,2" />
+                                <rect x="196" y="70" width="60" height="30" rx="6" fill="rgba(74,222,128,0.07)"
+                                    stroke="rgba(74,222,128,0.2)" stroke-width="1" />
+                                <text x="226" y="90" fill="rgba(74,222,128,0.6)" font-size="9" text-anchor="middle"
+                                    font-family="sans-serif">Output</text>
+                                <text x="140" y="130" fill="rgba(255,255,255,0.3)" font-size="10" text-anchor="middle"
+                                    font-family="sans-serif">Saves 30+ hrs/week</text>
+                            </svg>
+                        </div>
+                        <div class="port-overlay">
+                            <div class="port-view-btn">View Case Study →</div>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <div class="port-cats"><span class="port-cat">AI</span><span
+                                class="port-cat">Automation</span><span class="port-cat">Fintech</span></div>
+                        <h3>Meridian Finance — Workflow Automation</h3>
+                        <p>End-to-end automation of manual financial reporting workflows, saving the ops team 30+ hours
+                            weekly and eliminating data entry errors.</p>
+                        <div class="port-meta"><span>8-week delivery</span><span class="port-result">30hrs/wk saved
+                                ↑</span></div>
+                    </div>
+                </div>
+
+                <!-- Vanta Health -->
+                <div class="port-card reveal d1" data-cat="consulting">
+                    <div class="port-thumb"
+                        style="background:linear-gradient(135deg,rgba(123,94,167,0.07),rgba(13,13,20,0.9));">
+                        <div class="port-thumb-inner">
+                            <svg width="280" height="160" viewBox="0 0 280 160" fill="none">
+                                <circle cx="140" cy="80" r="50" fill="rgba(123,94,167,0.07)"
+                                    stroke="rgba(123,94,167,0.25)" stroke-width="1.5" />
+                                <circle cx="140" cy="80" r="35" fill="rgba(123,94,167,0.05)"
+                                    stroke="rgba(123,94,167,0.15)" stroke-width="1" />
+                                <text x="140" y="76" fill="rgba(123,94,167,0.8)" font-size="11" text-anchor="middle"
+                                    font-family="sans-serif" font-weight="bold">Security</text>
+                                <text x="140" y="91" fill="rgba(123,94,167,0.6)" font-size="11" text-anchor="middle"
+                                    font-family="sans-serif">Hardened</text>
+                                <text x="140" y="140" fill="rgba(255,255,255,0.3)" font-size="10" text-anchor="middle"
+                                    font-family="sans-serif">Architecture Re-designed</text>
+                            </svg>
+                        </div>
+                        <div class="port-overlay">
+                            <div class="port-view-btn">View Case Study →</div>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <div class="port-cats"><span class="port-cat">Consulting</span><span
+                                class="port-cat">Security</span><span class="port-cat">Health Tech</span></div>
+                        <h3>Vanta Health — Security & Architecture Audit</h3>
+                        <p>Comprehensive security audit and re-architecture of a healthcare platform handling sensitive
+                            patient data. Critical vulnerabilities found and resolved.</p>
+                        <div class="port-meta"><span>4-week audit</span><span class="port-result">12 vulnerabilities
+                                fixed</span></div>
+                    </div>
+                </div>
+
+                <!-- TradePilot Mobile -->
+                <div class="port-card reveal d2" data-cat="mobile">
+                    <div class="port-thumb"
+                        style="background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(13,13,20,0.9));">
+                        <div class="port-thumb-inner">
+                            <svg width="240" height="160" viewBox="0 0 240 160" fill="none">
+                                <rect x="85" y="10" width="70" height="120" rx="12" fill="rgba(0,229,255,0.06)"
+                                    stroke="rgba(0,229,255,0.18)" stroke-width="1.5" />
+                                <rect x="91" y="22" width="58" height="90" rx="6" fill="rgba(6,6,8,0.6)" />
+                                <rect x="97" y="28" width="46" height="22" rx="4" fill="rgba(0,229,255,0.08)" />
+                                <text x="120" y="43" fill="rgba(0,229,255,0.6)" font-size="8" text-anchor="middle"
+                                    font-family="sans-serif">Portfolio +18.4%</text>
+                                <rect x="97" y="54" width="22" height="22" rx="3" fill="rgba(74,222,128,0.08)" />
+                                <rect x="121" y="54" width="22" height="22" rx="3" fill="rgba(245,158,11,0.08)" />
+                                <rect x="97" y="80" width="46" height="8" rx="2" fill="rgba(255,255,255,0.05)" />
+                                <rect x="97" y="92" width="30" height="8" rx="2" fill="rgba(255,255,255,0.04)" />
+                                <circle cx="120" cy="120" r="5" fill="rgba(0,229,255,0.2)" />
+                            </svg>
+                        </div>
+                        <div class="port-overlay">
+                            <div class="port-view-btn">View Case Study →</div>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <div class="port-cats"><span class="port-cat">Mobile</span><span
+                                class="port-cat">Fintech</span><span class="port-cat">React Native</span></div>
+                        <h3>TradePilot — Mobile Trading App</h3>
+                        <p>Cross-platform React Native trading app with real-time portfolio tracking, push
+                            notifications, and biometric authentication for 10,000+ users.</p>
+                        <div class="port-meta"><span>12-week delivery</span><span class="port-result">4.8★ App
+                                Store</span></div>
+                    </div>
+                </div>
+
+                <!-- Featured: ClearDocs -->
+                <div class="port-card featured reveal d3" data-cat="ai web">
+                    <div class="port-thumb"
+                        style="background:linear-gradient(135deg,rgba(0,229,255,0.06),rgba(245,158,11,0.04),rgba(13,13,20,0.9));">
+                        <div class="port-thumb-inner">
+                            <svg width="420" height="200" viewBox="0 0 420 200" fill="none">
+                                <rect x="20" y="30" width="180" height="140" rx="10" fill="rgba(255,255,255,0.02)"
+                                    stroke="rgba(0,229,255,0.1)" stroke-width="1" />
+                                <text x="110" y="60" fill="rgba(0,229,255,0.5)" font-size="10" text-anchor="middle"
+                                    font-family="sans-serif">Document Upload</text>
+                                <rect x="36" y="70" width="148" height="8" rx="2" fill="rgba(255,255,255,0.06)" />
+                                <rect x="36" y="84" width="120" height="8" rx="2" fill="rgba(255,255,255,0.04)" />
+                                <rect x="36" y="98" width="136" height="8" rx="2" fill="rgba(255,255,255,0.05)" />
+                                <rect x="36" y="112" width="90" height="8" rx="2" fill="rgba(255,255,255,0.03)" />
+                                <path d="M200 100H230" stroke="rgba(0,229,255,0.5)" stroke-width="2"
+                                    stroke-dasharray="5,3" />
+                                <circle cx="240" cy="100" r="20" fill="rgba(0,229,255,0.1)" stroke="rgba(0,229,255,0.3)"
+                                    stroke-width="1.5" />
+                                <text x="240" y="104" fill="rgba(0,229,255,0.8)" font-size="9" text-anchor="middle"
+                                    font-family="sans-serif">AI</text>
+                                <path d="M260 100H290" stroke="rgba(0,229,255,0.5)" stroke-width="2"
+                                    stroke-dasharray="5,3" />
+                                <rect x="290" y="30" width="110" height="140" rx="10" fill="rgba(255,255,255,0.02)"
+                                    stroke="rgba(74,222,128,0.15)" stroke-width="1" />
+                                <text x="345" y="58" fill="rgba(74,222,128,0.6)" font-size="10" text-anchor="middle"
+                                    font-family="sans-serif">Summary</text>
+                                <rect x="302" y="66" width="86" height="7" rx="2" fill="rgba(74,222,128,0.06)" />
+                                <rect x="302" y="78" width="70" height="7" rx="2" fill="rgba(74,222,128,0.05)" />
+                                <rect x="302" y="100" width="86" height="7" rx="2" fill="rgba(74,222,128,0.04)" />
+                                <rect x="302" y="112" width="60" height="7" rx="2" fill="rgba(74,222,128,0.04)" />
+                            </svg>
+                        </div>
+                        <div class="port-overlay">
+                            <div class="port-view-btn">View Case Study →</div>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <div class="port-cats"><span class="port-cat">AI</span><span class="port-cat">Web
+                                App</span><span class="port-cat">Document Intelligence</span></div>
+                        <h3>ClearDocs — AI Document Processing Platform</h3>
+                        <p>LLM-powered document intelligence platform that auto-extracts, summarizes, and routes legal &
+                            financial documents. Processing 50,000+ documents monthly.</p>
+                        <div class="port-meta"><span>10-week delivery</span><span class="port-result">50K docs/month
+                                processed</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="port-stats">
+        <div class="port-stats-inner">
+            <div class="reveal d1">
+                <div class="ps-num" data-counter data-target="50" data-suffix="+">50+</div>
+                <div class="ps-label">Projects Delivered</div>
+            </div>
+            <div class="reveal d2">
+                <div class="ps-num" data-counter data-target="30" data-suffix="+">30+</div>
+                <div class="ps-label">Happy Clients</div>
+            </div>
+            <div class="reveal d3">
+                <div class="ps-num" data-counter data-target="7" data-suffix="">7</div>
+                <div class="ps-label">Industries Served</div>
+            </div>
+            <div class="reveal d4">
+                <div class="ps-num" data-counter data-target="98" data-suffix="%">98%</div>
+                <div class="ps-label">On-Time Delivery</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand"><a href="index.html" class="nav-logo">
+                        <div class="nav-logo-icon"><svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 8L8 2L14 8L8 14Z" fill="#060608" />
+                            </svg></div><span class="nav-logo-text">Nex<span class="cyan-text">Core</span></span>
+                    </a>
+                    <p>Building the software of tomorrow — today.</p>
+                    <div class="footer-socials"><a href="#" class="social-btn">Li</a><a href="#"
+                            class="social-btn">Tw</a><a href="#" class="social-btn">Gh</a></div>
+                </div>
+                <div class="footer-col">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="services.html#dev">Software Development</a></li>
+                        <li><a href="services.html#consulting">Consulting</a></li>
+                        <li><a href="services.html#ai">AI & Automation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <ul>
+                        <li><a href="mailto:hello@nexcore.dev">hello@nexcore.dev</a></li>
+                        <li><a href="#">Port Harcourt, NG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><span>© 2025 NexCore. All rights reserved.</span><span
+                    style="font-family:var(--font-display)">Built with precision. Deployed with care.</span></div>
+        </div>
+    </footer>
+
+    <button id="chat-toggle" aria-label="Chat"><svg id="chat-icon-open" width="22" height="22" viewBox="0 0 24 24"
+            fill="none">
+            <path
+                d="M21 15C21 15.53 20.79 16.04 20.41 16.41C20.04 16.79 19.53 17 19 17H7L3 21V5C3 4.47 3.21 3.96 3.59 3.59C3.96 3.21 4.47 3 5 3H19C19.53 3 20.04 3.21 20.41 3.59C20.79 3.96 21 4.47 21 5V15Z"
+                stroke="#060608" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg><svg id="chat-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="#060608" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+        <div class="chat-badge">1</div>
+    </button>
+    <div id="chatbot-wrap">
+        <div class="chat-header">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="chat-avatar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="4" fill="white" />
+                        <path d="M12 2V6M12 18V22M2 12H6M18 12H22" stroke="white" stroke-width="2"
+                            stroke-linecap="round" opacity="0.5" />
+                    </svg></div>
+                <div>
+                    <div style="font-family:var(--font-display);font-weight:700;font-size:14px;">NexCore AI</div>
+                    <div
+                        style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--soft);margin-top:2px;">
+                        <span
+                            style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:block;"></span>Online
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chat-msgs"></div>
+        <div class="chat-footer">
+            <div style="display:flex;gap:8px;"><textarea id="chat-input" rows="1"
+                    placeholder="Questions about our work?"></textarea><button id="chat-send">Send</button></div>
+            <div style="text-align:center;margin-top:8px;font-size:11px;color:var(--muted);">Powered by Claude AI</div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Portfolio filter
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
+                document.querySelectorAll('.port-card').forEach(card => {
+                    const cats = card.dataset.cat || '';
+                    const show = filter === 'all' || cats.includes(filter);
+                    card.style.opacity = show ? '1' : '0.25';
+                    card.style.pointerEvents = show ? 'auto' : 'none';
+                    card.style.transform = show ? '' : 'scale(0.97)';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

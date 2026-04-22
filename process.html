@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Process — NexCore</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* ── Hero ── */
+        .proc-hero {
+            padding: 160px 24px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proc-hero h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .proc-hero p {
+            color: var(--soft);
+            font-size: 1.05rem;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* ── Main process ── */
+        .proc-section {
+            padding: 80px 24px 100px;
+        }
+
+        .proc-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .proc-timeline {
+            position: relative;
+        }
+
+        .proc-timeline::before {
+            content: '';
+            position: absolute;
+            left: 39px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, rgba(0, 229, 255, 0.4), rgba(0, 229, 255, 0.1), transparent);
+        }
+
+        .proc-step {
+            display: flex;
+            gap: 28px;
+            margin-bottom: 72px;
+            position: relative;
+        }
+
+        .proc-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .proc-step-left {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .proc-step-num {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(0, 229, 255, 0.45);
+            background: var(--void);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 14px;
+            color: var(--cyan);
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.12);
+        }
+
+        .proc-step-content {
+            flex: 1;
+            padding-top: 8px;
+        }
+
+        .proc-phase {
+            font-family: var(--font-display);
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .proc-step h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .proc-step>.proc-step-content>p {
+            color: var(--soft);
+            font-size: 15px;
+            line-height: 1.75;
+            margin-bottom: 20px;
+        }
+
+        .proc-deliverables {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .proc-del {
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            color: var(--soft);
+            font-family: var(--font-display);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .proc-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .proc-detail {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: var(--surface);
+        }
+
+        .proc-detail h5 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .proc-detail p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        /* ── Principles ── */
+        .principles {
+            padding: 80px 24px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 229, 255, 0.015), transparent);
+        }
+
+        .principles-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .principle-card {
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: all 0.35s;
+        }
+
+        .principle-card:hover {
+            border-color: rgba(0, 229, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .principle-icon {
+            font-size: 28px;
+            margin-bottom: 14px;
+        }
+
+        .principle-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .principle-card p {
+            font-size: 13.5px;
+            color: var(--soft);
+            line-height: 1.65;
+        }
+
+        /* ── FAQ ── */
+        .faq {
+            padding: 80px 24px;
+        }
+
+        .faq-inner {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-q {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 0;
+            cursor: pointer;
+            gap: 16px;
+        }
+
+        .faq-q h4 {
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--text);
+            transition: color 0.2s;
+        }
+
+        .faq-q:hover h4 {
+            color: var(--cyan);
+        }
+
+        .faq-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+            border-color: rgba(0, 229, 255, 0.3);
+            color: var(--cyan);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s;
+        }
+
+        .faq-a p {
+            color: var(--soft);
+            font-size: 14.5px;
+            line-height: 1.75;
+            padding-bottom: 20px;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .proc-timeline::before {
+                left: 25px;
+            }
+
+            .proc-step-num {
+                width: 36px;
+                height: 36px;
+                font-size: 12px;
+            }
+
+            .proc-detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <canvas id="canvas"></canvas>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-icon"><svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                        <path d="M2 8L8 2L14 8L8 14Z" fill="#060608" />
+                    </svg></div><span class="nav-logo-text">Nex<span class="cyan-text">Core</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="process.html" class="nav-link active">Process</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="btn-primary btn-sm">Get Started →</a>
+            </div>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+        <div id="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="services.html" class="mobile-link">Services</a>
+            <a href="process.html" class="mobile-link active">Process</a>
+            <a href="portfolio.html" class="mobile-link">Portfolio</a>
+            <a href="about.html" class="mobile-link">About</a>
+            <a href="contact.html" class="mobile-link btn-primary btn-sm" style="text-align:center;margin-top:6px;">Get
+                Started →</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="proc-hero grid-bg">
+        <div class="orb orb-cyan" style="width:350px;height:350px;top:-60px;left:-60px;"></div>
+        <div class="orb orb-violet" style="width:300px;height:300px;bottom:-40px;right:-40px;"></div>
+        <div style="position:relative;z-index:2;">
+            <div class="section-tag" style="margin-bottom:12px;">How We Work</div>
+            <h1>A Process Built<br>for <span class="gradient-text" style="-webkit-text-fill-color:transparent">Real
+                    Results</span></h1>
+            <p>We don't wing it. Every project follows a battle-tested workflow designed to eliminate risk and maximize
+                outcome quality.</p>
+        </div>
+    </div>
+
+    <!-- PROCESS TIMELINE -->
+    <section class="proc-section">
+        <div class="proc-inner">
+            <div class="proc-timeline">
+
+                <div class="proc-step reveal">
+                    <div class="proc-step-left">
+                        <div class="proc-step-num">01</div>
+                    </div>
+                    <div class="proc-step-content">
+                        <div class="proc-phase">Week 1</div>
+                        <h3>Discovery & <span class="gradient-text"
+                                style="-webkit-text-fill-color:transparent">Strategy</span></h3>
+                        <p>We deep-dive into your business goals, technical constraints, user needs, and competitive
+                            landscape. This phase ends with complete alignment — no ambiguity, no guesswork.</p>
+                        <div class="proc-deliverables">
+                            <span class="proc-del">Stakeholder Interviews</span>
+                            <span class="proc-del">Technical Brief</span>
+                            <span class="proc-del">Competitive Analysis</span>
+                            <span class="proc-del">Risk Register</span>
+                        </div>
+                        <div class="proc-detail-grid">
+                            <div class="proc-detail">
+                                <h5>What We Uncover</h5>
+                                <p>Your goals, constraints, timeline, success metrics, and potential blockers.</p>
+                            </div>
+                            <div class="proc-detail">
+                                <h5>What You Receive</h5>
+                                <p>A clear project charter and high-level architecture recommendation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proc-step reveal">
+                    <div class="proc-step-left">
+                        <div class="proc-step-num">02</div>
+                    </div>
+                    <div class="proc-step-content">
+                        <div class="proc-phase">Week 2</div>
+                        <h3>Design & <span class="gradient-text"
+                                style="-webkit-text-fill-color:transparent">Architecture</span></h3>
+                        <p>System design, database schemas, UI/UX wireframes, and API contracts are finalized before a
+                            single line of production code is written. Architecture decisions made with intention.</p>
+                        <div class="proc-deliverables">
+                            <span class="proc-del">System Architecture Diagram</span>
+                            <span class="proc-del">UI/UX Wireframes</span>
+                            <span class="proc-del">Database Schema</span>
+                            <span class="proc-del">API Specification</span>
+                        </div>
+                        <div class="proc-detail-grid">
+                            <div class="proc-detail">
+                                <h5>Tech Stack Decision</h5>
+                                <p>We select the right tools for your use case — not our comfort zone.</p>
+                            </div>
+                            <div class="proc-detail">
+                                <h5>Visual Design</h5>
+                                <p>High-fidelity mockups in Figma. You approve before we build.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proc-step reveal">
+                    <div class="proc-step-left">
+                        <div class="proc-step-num">03</div>
+                    </div>
+                    <div class="proc-step-content">
+                        <div class="proc-phase">Weeks 3 – N</div>
+                        <h3>Agile <span class="gradient-text"
+                                style="-webkit-text-fill-color:transparent">Development</span></h3>
+                        <p>Two-week sprints with live demos at every milestone. Full code transparency via GitHub, daily
+                            async updates, and weekly check-in calls. You are never in the dark.</p>
+                        <div class="proc-deliverables">
+                            <span class="proc-del">2-Week Sprints</span>
+                            <span class="proc-del">Sprint Demos</span>
+                            <span class="proc-del">GitHub Access</span>
+                            <span class="proc-del">Weekly Sync</span>
+                        </div>
+                        <div class="proc-detail-grid">
+                            <div class="proc-detail">
+                                <h5>Quality Assurance</h5>
+                                <p>Automated tests, code reviews, and staging environment on every PR.</p>
+                            </div>
+                            <div class="proc-detail">
+                                <h5>Flexibility</h5>
+                                <p>Scope can adapt between sprints based on new insights or priorities.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proc-step reveal">
+                    <div class="proc-step-left">
+                        <div class="proc-step-num">04</div>
+                    </div>
+                    <div class="proc-step-content">
+                        <div class="proc-phase">Final Sprint</div>
+                        <h3>Testing & <span class="gradient-text"
+                                style="-webkit-text-fill-color:transparent">Launch</span></h3>
+                        <p>Full QA sweep, performance testing, security checks, and zero-downtime deployment. We don't
+                            ship anything we wouldn't be proud to put our name on.</p>
+                        <div class="proc-deliverables">
+                            <span class="proc-del">Full QA Testing</span>
+                            <span class="proc-del">Load Testing</span>
+                            <span class="proc-del">Security Scan</span>
+                            <span class="proc-del">CI/CD Deployment</span>
+                        </div>
+                        <div class="proc-detail-grid">
+                            <div class="proc-detail">
+                                <h5>Handover Package</h5>
+                                <p>Full documentation, source code, environment configs, and admin access.</p>
+                            </div>
+                            <div class="proc-detail">
+                                <h5>Launch Day</h5>
+                                <p>We're online and available the day you go live — no disappearing act.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proc-step reveal">
+                    <div class="proc-step-left">
+                        <div class="proc-step-num">05</div>
+                    </div>
+                    <div class="proc-step-content">
+                        <div class="proc-phase">Ongoing</div>
+                        <h3>Support & <span class="gradient-text"
+                                style="-webkit-text-fill-color:transparent">Growth</span></h3>
+                        <p>Post-launch monitoring, bug resolution, performance optimization, and feature iteration. We
+                            stay with you because great software is never really "done."</p>
+                        <div class="proc-deliverables">
+                            <span class="proc-del">24/7 Monitoring</span>
+                            <span class="proc-del">Bug Fix SLA</span>
+                            <span class="proc-del">Monthly Reports</span>
+                            <span class="proc-del">Feature Iterations</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PRINCIPLES -->
+    <section class="principles">
+        <div class="principles-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:48px;">
+                <div class="section-tag" style="margin-bottom:8px;">Our Principles</div>
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;">The Values Behind the Work</h2>
+            </div>
+            <div class="principles-grid">
+                <div class="principle-card reveal d1">
+                    <div class="principle-icon">⚡</div>
+                    <h4>Clarity First</h4>
+                    <p>Ambiguity kills projects. We over-communicate, document decisions, and make sure everyone is
+                        aligned before execution begins.</p>
+                </div>
+                <div class="principle-card reveal d2">
+                    <div class="principle-icon">🔬</div>
+                    <h4>Engineering Discipline</h4>
+                    <p>Clean code, tested thoroughly, documented properly. We build things that last and that future
+                        developers can actually work with.</p>
+                </div>
+                <div class="principle-card reveal d3">
+                    <div class="principle-icon">🤝</div>
+                    <h4>Partnership Mindset</h4>
+                    <p>We aren't contractors — we're partners. Your success is ours. We'll push back when needed and
+                        proactively flag risks before they become problems.</p>
+                </div>
+                <div class="principle-card reveal d4">
+                    <div class="principle-icon">📦</div>
+                    <h4>Delivery Obsession</h4>
+                    <p>Shipped is better than perfect. We balance quality with momentum and always meet our commitments.
+                    </p>
+                </div>
+                <div class="principle-card reveal d5">
+                    <div class="principle-icon">🔒</div>
+                    <h4>Security by Default</h4>
+                    <p>Security isn't an afterthought. Every system we build is reviewed for vulnerabilities, hardened,
+                        and monitored from day one.</p>
+                </div>
+                <div class="principle-card reveal d6">
+                    <div class="principle-icon">📈</div>
+                    <h4>Scale-Ready Thinking</h4>
+                    <p>We architect for where you're going, not just where you are. The systems we build won't choke at
+                        10× your current load.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="faq-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:48px;">
+                <div class="section-tag" style="margin-bottom:8px;">FAQ</div>
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;">Common Questions</h2>
+            </div>
+            <div id="faq-list">
+                <div class="faq-item reveal">
+                    <div class="faq-q" onclick="toggleFAQ(this)">
+                        <h4>How long does a typical project take?</h4>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-a">
+                        <p>It depends on scope. An MVP typically takes 6–12 weeks. A full enterprise product can take
+                            4–8 months. We'll give you a clear timeline during Discovery — no vague estimates.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-q" onclick="toggleFAQ(this)">
+                        <h4>How do you handle scope changes mid-project?</h4>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-a">
+                        <p>We use a formal change request process. Any changes outside the original scope are
+                            documented, estimated, and approved before we execute. No surprise invoices.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-q" onclick="toggleFAQ(this)">
+                        <h4>What access do we have to the project during development?</h4>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-a">
+                        <p>Full access. You'll have a GitHub repository, a staging URL, a shared project board, and a
+                            dedicated communication channel. You can see progress daily if you want to.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-q" onclick="toggleFAQ(this)">
+                        <h4>Do you sign NDAs?</h4>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-a">
+                        <p>Absolutely. We sign NDAs as standard before any sensitive information is shared. Your IP,
+                            business logic, and data are protected.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-q" onclick="toggleFAQ(this)">
+                        <h4>Who owns the code after delivery?</h4>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-a">
+                        <p>You do. 100%. Upon final payment, all intellectual property transfers to you. No licensing
+                            hooks, no lock-in.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand"><a href="index.html" class="nav-logo">
+                        <div class="nav-logo-icon"><svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 8L8 2L14 8L8 14Z" fill="#060608" />
+                            </svg></div><span class="nav-logo-text">Nex<span class="cyan-text">Core</span></span>
+                    </a>
+                    <p>Building the software of tomorrow — today.</p>
+                    <div class="footer-socials"><a href="#" class="social-btn">Li</a><a href="#"
+                            class="social-btn">Tw</a><a href="#" class="social-btn">Gh</a></div>
+                </div>
+                <div class="footer-col">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="services.html#dev">Software Development</a></li>
+                        <li><a href="services.html#consulting">Consulting</a></li>
+                        <li><a href="services.html#ai">AI & Automation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <ul>
+                        <li><a href="mailto:hello@nexcore.dev">hello@nexcore.dev</a></li>
+                        <li><a href="#">Port Harcourt, NG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><span>© 2025 NexCore. All rights reserved.</span><span
+                    style="font-family:var(--font-display)">Built with precision. Deployed with care.</span></div>
+        </div>
+    </footer>
+
+    <button id="chat-toggle" aria-label="Chat"><svg id="chat-icon-open" width="22" height="22" viewBox="0 0 24 24"
+            fill="none">
+            <path
+                d="M21 15C21 15.53 20.79 16.04 20.41 16.41C20.04 16.79 19.53 17 19 17H7L3 21V5C3 4.47 3.21 3.96 3.59 3.59C3.96 3.21 4.47 3 5 3H19C19.53 3 20.04 3.21 20.41 3.59C20.79 3.96 21 4.47 21 5V15Z"
+                stroke="#060608" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg><svg id="chat-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="#060608" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+        <div class="chat-badge">1</div>
+    </button>
+    <div id="chatbot-wrap">
+        <div class="chat-header">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="chat-avatar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="4" fill="white" />
+                        <path d="M12 2V6M12 18V22M2 12H6M18 12H22" stroke="white" stroke-width="2"
+                            stroke-linecap="round" opacity="0.5" />
+                    </svg></div>
+                <div>
+                    <div style="font-family:var(--font-display);font-weight:700;font-size:14px;">NexCore AI</div>
+                    <div
+                        style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--soft);margin-top:2px;">
+                        <span
+                            style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:block;"></span>Online
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chat-msgs"></div>
+        <div class="chat-footer">
+            <div style="display:flex;gap:8px;"><textarea id="chat-input" rows="1"
+                    placeholder="Ask about our process…"></textarea><button id="chat-send">Send</button></div>
+            <div style="text-align:center;margin-top:8px;font-size:11px;color:var(--muted);">Powered by Claude AI</div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        function toggleFAQ(el) {
+            const item = el.parentElement;
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — NexCore</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .about-hero {
+            padding: 160px 24px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        /* Mission */
+        .mission {
+            padding: 80px 24px;
+        }
+
+        .mission-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .mission-text h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .mission-text p {
+            color: var(--soft);
+            line-height: 1.8;
+            font-size: 15px;
+            margin-bottom: 16px;
+        }
+
+        .mission-values {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mv-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: all 0.3s;
+        }
+
+        .mv-item:hover {
+            border-color: rgba(0, 229, 255, 0.2);
+        }
+
+        .mv-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .mv-item h5 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .mv-item p {
+            font-size: 13px;
+            color: var(--soft);
+            line-height: 1.55;
+        }
+
+        /* Stats */
+        .about-stats {
+            padding: 60px 24px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 229, 255, 0.015), transparent);
+        }
+
+        .about-stats-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        .as-card {
+            text-align: center;
+            padding: 36px 20px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .as-card:first-child {
+            border-radius: 16px 0 0 16px;
+        }
+
+        .as-card:last-child {
+            border-radius: 0 16px 16px 0;
+        }
+
+        .as-num {
+            font-family: var(--font-display);
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--cyan);
+        }
+
+        .as-lbl {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: var(--font-display);
+        }
+
+        /* Team */
+        .team {
+            padding: 80px 24px;
+        }
+
+        .team-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .team-card {
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: all 0.4s;
+        }
+
+        .team-card:hover {
+            border-color: rgba(0, 229, 255, 0.22);
+            transform: translateY(-6px);
+        }
+
+        .team-avatar {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .team-info {
+            padding: 20px 22px;
+        }
+
+        .team-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .team-role {
+            font-size: 12px;
+            color: var(--cyan);
+            font-family: var(--font-display);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .team-bio {
+            font-size: 13px;
+            color: var(--soft);
+            line-height: 1.6;
+        }
+
+        .team-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 14px;
+        }
+
+        .team-skill {
+            font-size: 11px;
+            padding: 3px 9px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: var(--font-display);
+        }
+
+        /* Culture */
+        .culture {
+            padding: 80px 24px;
+        }
+
+        .culture-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .culture-card {
+            border-radius: 22px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .culture-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .culture-card p {
+            font-size: 14px;
+            color: var(--soft);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 900px) {
+            .mission-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .as-card:first-child {
+                border-radius: 16px 0 0 0;
+            }
+
+            .as-card:last-child {
+                border-radius: 0 0 16px 0;
+            }
+
+            .culture-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <canvas id="canvas"></canvas>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-icon"><svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                        <path d="M2 8L8 2L14 8L8 14Z" fill="#060608" />
+                    </svg></div><span class="nav-logo-text">Nex<span class="cyan-text">Core</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="process.html" class="nav-link">Process</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="contact.html" class="btn-primary btn-sm">Get Started →</a>
+            </div>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+        <div id="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="services.html" class="mobile-link">Services</a>
+            <a href="process.html" class="mobile-link">Process</a>
+            <a href="portfolio.html" class="mobile-link">Portfolio</a>
+            <a href="about.html" class="mobile-link active">About</a>
+            <a href="contact.html" class="mobile-link btn-primary btn-sm" style="text-align:center;margin-top:6px;">Get
+                Started →</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="about-hero grid-bg">
+        <div class="orb orb-violet" style="width:400px;height:400px;top:-80px;left:-80px;"></div>
+        <div style="position:relative;z-index:2;">
+            <div class="section-tag" style="margin-bottom:12px;">Our Story</div>
+            <h1>Built by Engineers, <br>for <span class="gradient-text"
+                    style="-webkit-text-fill-color:transparent">Builders</span></h1>
+            <p style="color:var(--soft);font-size:1.05rem;max-width:500px;margin:0 auto;">NexCore was founded on a
+                simple belief: great software engineering and honest partnership can transform any business.</p>
+        </div>
+    </div>
+
+    <!-- MISSION -->
+    <section class="mission">
+        <div class="mission-inner">
+            <div class="mission-text reveal-left">
+                <div class="section-tag" style="margin-bottom:10px;">Our Mission</div>
+                <h2>Technology That <span class="gradient-text" style="-webkit-text-fill-color:transparent">Moves
+                        Business</span></h2>
+                <p>NexCore was founded in 2020 by a group of senior engineers who were tired of watching clients get
+                    burned by agencies that overpromised and underdelivered.</p>
+                <p>We set out to build something different: a studio where technical excellence and honest communication
+                    were non-negotiable. Five years later, we've shipped 50+ products across fintech, healthtech,
+                    e-commerce, logistics, and more.</p>
+                <p>We're not the biggest studio in the room. But we're the most committed ones at the table.</p>
+                <a href="contact.html" class="btn-primary btn-md" style="margin-top:16px;"><span>Work With Us
+                        →</span></a>
+            </div>
+            <div class="mission-values reveal-right">
+                <div class="mv-item">
+                    <div class="mv-icon">🎯</div>
+                    <div>
+                        <h5>Outcome-Oriented</h5>
+                        <p>We measure success by the impact on your business, not the elegance of our code.</p>
+                    </div>
+                </div>
+                <div class="mv-item">
+                    <div class="mv-icon">🔍</div>
+                    <div>
+                        <h5>Radical Transparency</h5>
+                        <p>Bad news travels fast at NexCore. If there's a problem, you hear from us first — with a
+                            proposed solution.</p>
+                    </div>
+                </div>
+                <div class="mv-item">
+                    <div class="mv-icon">🛠️</div>
+                    <div>
+                        <h5>Craft Over Speed</h5>
+                        <p>We move fast but we don't cut corners. Quality is not negotiable — it's our reputation.</p>
+                    </div>
+                </div>
+                <div class="mv-item">
+                    <div class="mv-icon">🌍</div>
+                    <div>
+                        <h5>Remote-First Culture</h5>
+                        <p>Our team spans multiple time zones. We've built our workflows to make distributed
+                            collaboration feel seamless.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="about-stats">
+        <div class="about-stats-inner">
+            <div class="as-card reveal d1">
+                <div class="as-num" data-counter data-target="50" data-suffix="+">50+</div>
+                <div class="as-lbl">Projects Shipped</div>
+            </div>
+            <div class="as-card reveal d2">
+                <div class="as-num" data-counter data-target="30" data-suffix="+">30+</div>
+                <div class="as-lbl">Clients Served</div>
+            </div>
+            <div class="as-card reveal d3">
+                <div class="as-num" data-counter data-target="5" data-suffix="yr">5yr</div>
+                <div class="as-lbl">In Business</div>
+            </div>
+            <div class="as-card reveal d4">
+                <div class="as-num" data-counter data-target="80" data-suffix="%">80%</div>
+                <div class="as-lbl">Client Retention</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEAM -->
+    <section class="team">
+        <div class="team-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:16px;">
+                <div class="section-tag" style="margin-bottom:8px;">The Team</div>
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;">The People Behind the Work</h2>
+                <p style="color:var(--soft);margin-top:10px;font-size:14px;">A small, focused team of senior engineers
+                    and strategists.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card reveal d1">
+                    <div class="team-avatar"
+                        style="background:linear-gradient(135deg,rgba(0,229,255,0.1),rgba(123,94,167,0.08));color:rgba(0,229,255,0.8);">
+                        KA</div>
+                    <div class="team-info">
+                        <h4>Kelechi Adekunle</h4>
+                        <div class="team-role">Co-Founder & CTO</div>
+                        <p class="team-bio">10 years building distributed systems at scale. Former lead engineer at a
+                            top African fintech. Obsessed with clean architecture and mentoring.</p>
+                        <div class="team-skills"><span class="team-skill">Go</span><span
+                                class="team-skill">Kubernetes</span><span class="team-skill">AWS</span><span
+                                class="team-skill">System Design</span></div>
+                    </div>
+                </div>
+                <div class="team-card reveal d2">
+                    <div class="team-avatar"
+                        style="background:linear-gradient(135deg,rgba(123,94,167,0.1),rgba(245,158,11,0.06));color:rgba(123,94,167,0.9);">
+                        ZO</div>
+                    <div class="team-info">
+                        <h4>Zara Okonkwo</h4>
+                        <div class="team-role">Head of AI & Automation</div>
+                        <p class="team-bio">ML engineer with deep expertise in LLM integration and workflow automation.
+                            Built AI pipelines processing millions of events daily.</p>
+                        <div class="team-skills"><span class="team-skill">Python</span><span
+                                class="team-skill">PyTorch</span><span class="team-skill">LangChain</span><span
+                                class="team-skill">MLOps</span></div>
+                    </div>
+                </div>
+                <div class="team-card reveal d3">
+                    <div class="team-avatar"
+                        style="background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(0,229,255,0.06));color:rgba(245,158,11,0.85);">
+                        TE</div>
+                    <div class="team-info">
+                        <h4>Taiwo Eze</h4>
+                        <div class="team-role">Lead Frontend Engineer</div>
+                        <p class="team-bio">Pixel-perfect UI engineer who bridges design and engineering. Obsessed with
+                            performance, accessibility, and motion design.</p>
+                        <div class="team-skills"><span class="team-skill">React</span><span
+                                class="team-skill">Next.js</span><span class="team-skill">TypeScript</span><span
+                                class="team-skill">Figma</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CULTURE -->
+    <section class="culture">
+        <div class="culture-inner">
+            <div class="reveal" style="text-align:center;margin-bottom:16px;">
+                <div class="section-tag" style="margin-bottom:8px;">Culture</div>
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;">How We Work Together</h2>
+            </div>
+            <div class="culture-grid">
+                <div class="culture-card reveal d1">
+                    <h4>🌐 Remote-First, Async-Smart</h4>
+                    <p>Our team operates across multiple time zones. We've invested heavily in async workflows so no one
+                        is blocked waiting for a meeting that could have been a message.</p>
+                </div>
+                <div class="culture-card reveal d2">
+                    <h4>📚 Always Learning</h4>
+                    <p>Every team member has a dedicated learning budget and dedicated time each week for professional
+                        development. The best engineers never stop being students.</p>
+                </div>
+                <div class="culture-card reveal d3">
+                    <h4>💬 Honest Communication</h4>
+                    <p>We have a strict no-BS culture. Feedback flows freely, and we'd rather have an awkward
+                        conversation early than a failed project late.</p>
+                </div>
+                <div class="culture-card reveal d4">
+                    <h4>🏆 Ship, Reflect, Improve</h4>
+                    <p>After every project we do a detailed retrospective. Every lesson learned is turned into a process
+                        improvement so we consistently get better.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand"><a href="index.html" class="nav-logo">
+                        <div class="nav-logo-icon"><svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 8L8 2L14 8L8 14Z" fill="#060608" />
+                            </svg></div><span class="nav-logo-text">Nex<span class="cyan-text">Core</span></span>
+                    </a>
+                    <p>Building the software of tomorrow — today.</p>
+                    <div class="footer-socials"><a href="#" class="social-btn">Li</a><a href="#"
+                            class="social-btn">Tw</a><a href="#" class="social-btn">Gh</a></div>
+                </div>
+                <div class="footer-col">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="services.html#dev">Software Development</a></li>
+                        <li><a href="services.html#consulting">Consulting</a></li>
+                        <li><a href="services.html#ai">AI & Automation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <ul>
+                        <li><a href="mailto:hello@nexcore.dev">hello@nexcore.dev</a></li>
+                        <li><a href="#">Port Harcourt, NG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><span>© 2025 NexCore. All rights reserved.</span><span
+                    style="font-family:var(--font-display)">Built with precision. Deployed with care.</span></div>
+        </div>
+    </footer>
+
+    <button id="chat-toggle" aria-label="Chat"><svg id="chat-icon-open" width="22" height="22" viewBox="0 0 24 24"
+            fill="none">
+            <path
+                d="M21 15C21 15.53 20.79 16.04 20.41 16.41C20.04 16.79 19.53 17 19 17H7L3 21V5C3 4.47 3.21 3.96 3.59 3.59C3.96 3.21 4.47 3 5 3H19C19.53 3 20.04 3.21 20.41 3.59C20.79 3.96 21 4.47 21 5V15Z"
+                stroke="#060608" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg><svg id="chat-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="#060608" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+        <div class="chat-badge">1</div>
+    </button>
+    <div id="chatbot-wrap">
+        <div class="chat-header">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="chat-avatar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="4" fill="white" />
+                        <path d="M12 2V6M12 18V22M2 12H6M18 12H22" stroke="white" stroke-width="2"
+                            stroke-linecap="round" opacity="0.5" />
+                    </svg></div>
+                <div>
+                    <div style="font-family:var(--font-display);font-weight:700;font-size:14px;">NexCore AI</div>
+                    <div
+                        style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--soft);margin-top:2px;">
+                        <span
+                            style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:block;"></span>Online
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chat-msgs"></div>
+        <div class="chat-footer">
+            <div style="display:flex;gap:8px;"><textarea id="chat-input" rows="1"
+                    placeholder="Ask about our team…"></textarea><button id="chat-send">Send</button></div>
+            <div style="text-align:center;margin-top:8px;font-size:11px;color:var(--muted);">Powered by Claude AI</div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
