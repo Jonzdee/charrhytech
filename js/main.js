@@ -1,6 +1,4 @@
-/* ============================================
-   NEXCORE — Shared JavaScript (main.js)
-   ============================================ */
+
 
 // ─── Cursor glow ───────────────────────────
 (function () {
@@ -158,7 +156,7 @@ window.handleContactForm = function (e, formId, successId) {
 
     if (!toggle || !wrap) return;
 
-    const SYSTEM = `You are a friendly, knowledgeable customer service AI for NexCore — a premium software and AI studio.
+    const SYSTEM = `You are a friendly, knowledgeable customer service AI for Charrhytech — a premium software and AI studio.
 
 Services:
 • Software Development — Full-stack web/mobile apps, APIs, cloud-native systems, DevOps, React, Node.js, Python, Go
@@ -230,7 +228,7 @@ Rules:
         if (badge) badge.style.display = 'none';
         if (chatOpen && !chatInited) {
             chatInited = true;
-            setTimeout(() => addMsg('bot', "👋 Hey! I'm NexCore AI. Whether you have questions about software development, consulting, or AI automation — I'm here to help. What's on your mind?"), 350);
+            setTimeout(() => addMsg('bot', "👋 Hey! I'm Charrhytech AI. Whether you have questions about software development, consulting, or AI automation — I'm here to help. What's on your mind?"), 350);
         }
         if (chatOpen) setTimeout(() => input.focus(), 400);
     });
